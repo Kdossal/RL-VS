@@ -1,0 +1,10 @@
+DATA_BATCH = 0
+MAX_ITERS = 1000
+TARGET_UPDATE = 1
+BATCH_SIZE = 64
+EPSILON_START = 0.99
+EPSILON_END = 0.05
+EPSILON_DECAY = .995 # Calculated to take ~100 episodes to hit epsilon min at 8 iterations of Replay Memory after each Episode
+INT_EPS = 1e-4
+GAMMA = 0.8
+EXP_NUM = 0 # Experiment Number, saves model and results under this ID
