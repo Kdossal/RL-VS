@@ -9,7 +9,7 @@ Our work is builds off research conducted by Tobias DeKara, which amalgamated Mi
 - `Results/`: Experiment results, `results.md` gives an overview for each file
 - `Synthetic_Data/`: 
     - `gen_syn_data.py`: Script for generating synthetic data for variable selection.
-    - `batch_n/`: Batch of Synthetic Data Generated
+    - `label/`: Batch of Synthetic Data Generated Labled with Setting
 - `Explore.ipynb`: Jupyter Notebook for model tuning, exploring the B&B algorithm, and evaluating results.
 - `Main.py`: Main script to run B&B Algorithm on synthetic data. Outputs stored in Results/ and models in Models/.
 - `Model`: Code for creating our DQN Agent
