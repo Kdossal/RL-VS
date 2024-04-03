@@ -1,7 +1,7 @@
 # Reinforcement Learning for Best Subset Variable Selection
-This repository contains all code, datasets, and documentation developed for the thesis "Reinforcement Learning for Best Subset Variable Selection", undertaken by **Kameel Dossal** under the guidance of Professor **Alice Paul** at Brown University. The project delves how Reinforcement Learning (RL) can be leveraged to enhance the Branch and Bound (B&B) algorithm's performance in Best Subset Selection problems for sparse linear regression.
+This repository contains all code, datasets, and documentation developed for the thesis "Reinforcement Learning for Best Subset Variable Selection", undertaken by **Kameel Dossal** under the guidance of Professor **Alice Paul** at Brown University. The project delves into how Reinforcement Learning (RL) can be leveraged to enhance the Branch and Bound (B&B) algorithm's performance in Best Subset Selection problems for sparse linear regression.
 
-Our work is builds off research conducted by Tobias DeKara, which amalgamated Mixed Integer Quadratic Optimization (MIQO) with RL for a refined approach to variable selection challenges. We extended this foundation by fine-tuning RL's application to optimize the B&B algoirthm further, focusing on computational efficiency and the accuracy of variable selection in high-dimensional data analysis.
+Our work is built off research conducted by Tobias DeKara, which combined RL with Mixed Integer Quadratic Optimization (MIQO) for a refined approach to the variable selection problem. We extended this foundation by fine-tuning RL's application to optimize the B&B algorithm further, focusing on computational efficiency and variable selection accuracy in high-dimensional data analysis.
 
 
 ## Repository Structure
@@ -11,7 +11,7 @@ Our work is builds off research conducted by Tobias DeKara, which amalgamated Mi
     - `gen_syn_data.py`: Script for generating synthetic data for variable selection.
     - `label/`: Batch of Synthetic Data Generated Labled with Setting
 - `Explore.ipynb`: Jupyter Notebook for model tuning, exploring the B&B algorithm, and evaluating results.
-- `Main.py`: Main script to run B&B Algorithm on synthetic data. Outputs stored in Results/ and models in Models/.
+- `Main.py`: Main script to run B&B Algorithm on synthetic data. Outputs are stored in Results/ and models in Models/.
 - `Model`: Code for creating our DQN Agent
 - `Node.py`: Code for the Node class/data structure within the tree.
 - `Settings.py`: Configuration file for specifying hyperparameters, dataset selection, and storage options for running `Main.py`.
