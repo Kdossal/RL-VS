@@ -113,43 +113,42 @@ class Agent():
 
     def select_action(self, T):
         """
-        Select an optimal node and j to split on given a tree
+        Select an optimal node and j to branch on given a tree
 
         Parameters
         ----------
         T: Tree Class
             the tree to select an action on
         
-        best_node_key: Str
-            string tied to the node to split on
+        node_key: Str
+            string tied to the node to branch on
         best_j: Int
-            int representing the variable to split on
+            int representing the variable to branch on
         """
 
         # Select an action according to an epsilon greedy approach        
         if (random.random() < self.epsilon):
             # max fraction branching
-            best_node_key, best_j = T.max_frac_branch()
+            node_key, best_j = T.max_frac_branch()
         else:
-            # calculate estimated value for all nodes
+            # calculate estimated value for Node with Global Lower Bound
             best_val = -math.inf
-            best_node_key = None
+            node_key = T.lower_bound_node_key 
             best_j = 0
+            node = T.active_nodes[node_key]
+            support = node.support
 
-            for node_key in T.active_nodes:
-                support = T.active_nodes[node_key].support
-                for i in range(len(support)):
-                    if (T.active_nodes[node_key].z[i] < INT_EPS) or (T.active_nodes[node_key].z[i] > 1-INT_EPS):
-                        continue
-                    state = torch.tensor(np.array([T.get_state(node_key, support[i])]), dtype=torch.float)
-                    # Agent estimates usings policy network
-                    val = self.policy_net(state) 
-                    if(val > best_val):
-                        best_val = val
-                        best_node_key = node_key
-                        best_j = support[i]
+            for i in range(len(support)):
+                if (T.active_nodes[node_key].z[i] < INT_EPS) or (T.active_nodes[node_key].z[i] > 1-INT_EPS):
+                    continue
+                state = torch.tensor(np.array([T.get_state(node_key, support[i])]), dtype=torch.float)
+                # Agent estimates usings policy network
+                val = self.policy_net(state) 
+                if(val > best_val):
+                    best_val = val
+                    best_j = support[i]
 
-        return(best_node_key, best_j)
+        return(node_key, best_j)
     
     def replay_memory(self):
         """

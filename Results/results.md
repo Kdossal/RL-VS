@@ -117,14 +117,14 @@ results 25: Mixed Settings, 91 Episodes
 
 ## Results
 
-### Training 
+### Validation 
 Comparing P10, P50, P100 and Mixed Models against Max Fraction Branch and Strong Branching 
 
-- p10_comp: p10, 25 Episodes
+- p10_comp: Validation p10, 25 Episodes
 
-- p50_comp: p50, 25 Episodes
+- p50_comp: Validation p50, 25 Episodes
 
-- p100_comp: p100, 25 Episodes
+- p100_comp: Validation p100, 25 Episodes
 
 ### Testing
 Comparing Mixed Model against Max Fraction Branch and Strong Branching 

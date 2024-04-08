@@ -79,7 +79,7 @@ for f in files:
     num_files += 1
 
 # Save Results
-res.to_csv(f"results/results"+str(EXP_NUM)+".csv", index=False)
+res.to_csv(f"Results/results_"+str(EXP_NUM)+".csv", index=False)
 
 # Save Model Information
-# torch.save(agent.policy_net.state_dict(), f"synthetic_data/models/model_{EXP_NUM}.pt")    # Save Policy Net
+# torch.save(agent.policy_net.state_dict(), f"synthetic_data/Models/model_{EXP_NUM}.pt")    # Save Policy Net
