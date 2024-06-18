@@ -5,11 +5,11 @@ Our work is built off research conducted by Tobias DeKara, which combined RL wit
 
 
 ## Repository Structure
-- `Models/`: Stored Trained Models
+- `Models/`: Stored trained models
 - `Results/`: Experiment results, `results.md` gives an overview for each file
 - `Synthetic_Data/`: 
     - `gen_syn_data.py`: Script for generating synthetic data for variable selection.
-    - `label/`: Batch of Synthetic Data Generated Labled with Setting
+    - `label/`: Batch of synthetic data generated, labled with setting
 - `Explore.ipynb`: Jupyter Notebook for model tuning, exploring the B&B algorithm, and evaluating results.
 - `Main.py`: Main script to run B&B Algorithm on synthetic data. Outputs are stored in Results/ and models in Models/.
 - `Model`: Code for creating our DQN Agent
@@ -20,7 +20,7 @@ Our work is built off research conducted by Tobias DeKara, which combined RL wit
 ## Getting Started
 1. Clone the repository.
 2. Install required dependencies.
-3. Run gen_syn_data.py to generate synthetic data.
+3. Run gen_syn_data.py to generate synthetic data if desired.
 4. Tune settings in setting.py.
-5. Use main.py to execute the algorithms and generate results.
-6. See Explore.ipynb to explore results and a guide to our code.
+5. Use Main.py to execute the algorithms and generate results.
+6. See Explore.ipynb to explore results, serves as a guide to our code.
