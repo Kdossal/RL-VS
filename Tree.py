@@ -215,6 +215,7 @@ class tree():
 
         # Start Tree
         self.root = self.active_nodes['root_node']
+        self.lower_bound_node_key = 'root_node'
 
         # Return if done
         if self.int_sol(root_node) or (self.optimality_gap <= self.problem.gap_tol):
@@ -320,34 +321,32 @@ class tree():
                   self.tree_stats,
                   self.get_node_stats(node_key),
                   self.get_var_stats(node_key, j)))
-
         return(state)
 
     def get_frac_branchs(self):
-        # Finds fractional part for all possible splits
+        # Finds fractional part for all possible splits within Node
+        node = self.active_nodes[self.lower_bound_node_key] # Branch on node with Global Lower Bound
         frac_dict = {}
-        for node_key in self.active_nodes:
-            node = self.active_nodes[node_key]
-            for i in range(len(node.support)):
-                frac_dict[(node_key, node.support[i])] = min([1-node.z[i],node.z[i]])
+        for i in range(len(node.support)):
+            frac_dict[(self.lower_bound_node_key, node.support[i])] = min([1-node.z[i],node.z[i]])
         return(frac_dict)
 
     def max_frac_branch(self):
-        # Finds node with greatest fractional part
-        best_node_key = None
+        # Finds node-variable with greatest fractional part
+        best_node_key = self.lower_bound_node_key   # Select node with Global Lower Bound
         best_frac = 0
         best_index = None
-        for node_key in self.active_nodes:
-            node = self.active_nodes[node_key]
-            z = node.z
-            support = node.support
-            diff = [min(1-z[i],z[i]) for i in range(len(support))]
-            max_diff = max(diff)
-            potential_j = [i for i in range(len(support)) if diff[i]== max_diff][0]
-            if max_diff > best_frac:
-                best_node_key = node_key
-                best_frac = max_diff
-                best_index = support[potential_j]
+        node = self.active_nodes[self.lower_bound_node_key]
+
+        z = node.z
+        support = node.support
+        diff = [min(1-z[i],z[i]) for i in range(len(support))]
+        max_diff = max(diff)
+        potential_j = [i for i in range(len(support)) if diff[i]== max_diff][0]
+        if max_diff > best_frac:
+            best_frac = max_diff
+            best_index = support[potential_j]
+
         return(best_node_key, best_index)
 
     def int_sol(self, node):
@@ -511,7 +510,7 @@ class tree():
             return pairs
 
         # Function to categorize rewards inline
-        categorize_reward = lambda opt_gap: 1 if 0 < opt_gap <= 0.05 else 2 if 0.05 < opt_gap <= 0.15 else 3 if opt_gap > 0.15 else -1
+        categorize_reward = lambda opt_gap: -2 if 0 < opt_gap <= 0.01 else -1 if 0.01 < opt_gap <= 0.05 else 1 if opt_gap > 0.05 else -2
 
         # Check left child
         if node.left:
@@ -526,3 +525,16 @@ class tree():
             pairs.extend(self.get_state_pairs(node.right))
 
         return pairs
+
+    def collect_opt_gaps(self, n):
+            """ Traverse the tree to collect all opt_gap values of branch nodes. """
+            if not n:
+                return []
+            gaps = []
+            if n.left and not n.left.is_leaf:
+                gaps.append(n.left.opt_gap)
+                gaps.extend(self.collect_opt_gaps(n.left))
+            if n.right and not n.right.is_leaf:
+                gaps.append(n.right.opt_gap)
+                gaps.extend(self.collect_opt_gaps(n.right))
+            return gaps

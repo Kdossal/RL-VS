@@ -74,8 +74,7 @@ class Node:
             self.is_leaf = False
 
     def __str__(self):
-        return f'level: {self.level}, lower bound: {self.primal_value}, ' \
-            f'upper bound: {self.upper_bound}'
+        return f'level: {self.node_key}, Is leaf: {self.is_leaf}, Change in opt gap: {self.opt_gap}'
 
     def __repr__(self):
         return self.__str__()

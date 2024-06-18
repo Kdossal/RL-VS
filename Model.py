@@ -29,6 +29,22 @@ class DQN(nn.Module):
         output = self.fc3(output2)
         return(output)
 
+# Deep Q Network
+class Large_DQN(nn.Module):
+    def __init__(self, input_size):
+        super(Large_DQN, self).__init__()
+        self.fc1 = nn.Linear(input_size, 128)
+        self.fc2 = nn.Linear(128, 32)
+        self.fc3 = nn.Linear(32, 16)
+        self.fc4 = nn.Linear(16, 1)
+
+    def forward(self, x):
+        output1 = F.leaky_relu(self.fc1(x))
+        output2 = F.leaky_relu(self.fc2(output1))
+        output3 = F.leaky_relu(self.fc3(output2))
+        output = self.fc4(output3)
+        return(output)
+
 # Memory for our agent
 class Memory(object):
     def __init__(self, capacity):
@@ -45,9 +61,13 @@ class Memory(object):
 
 # Agent that performs, remembers and learns actions
 class Agent():
-    def __init__(self, n):
-        self.policy_net = DQN(n)
-        self.target_net = DQN(n)
+    def __init__(self, n, DQN_Large=False):
+        if DQN_Large:
+            self.policy_net = Large_DQN(n)
+            self.target_net = Large_DQN(n)
+        else:
+            self.policy_net = DQN(n)
+            self.target_net = DQN(n)
         self.optimizer = optim.RMSprop(self.policy_net.parameters())
         self.memory = Memory(10000)
         self.episodes_played = 0
@@ -70,7 +90,7 @@ class Agent():
             total reward for playing through tree
         """
 
-        # Complete Tree -- Get (Non-Optimal) States for Leaf Nodes
+        # Complete Tree -- Get States for Leaf Nodes
         for node in tree.all_nodes.values():
             if node.state is None: 
                 if len(node.support) == 0:

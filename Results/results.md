@@ -98,7 +98,7 @@ results 20: p50, 100 Episodes (8 iters)
 
 results 21: Mixed Settings, 100 Episodes (8 iters)
 
-### Round 6 -- Final Model Training
+### Round 6
 - 34 -> 64 -> 16 -> 1
 - BATCH_SIZE 64
 - GAMMA 0.8
@@ -109,24 +109,34 @@ results 22: p10, 100 Episodes
 
 results 23: p50, 100 Episodes
 
-results 24: p100, 87 Episodes
-- Training cut short, model training post episode limit saw a decrease in performance
+results 24: p100, 100 Episodes
+- Training stopped at Episode 87, model training post episode limit saw a decrease in performance
 
-results 25: Mixed Settings, 91 Episodes
-- Training cut short, model training post episode limit saw a decrease in performance
+results 25: Mixed Settings, 100 Episodes
+- Training stopped at Episode 91, model training post episode limit saw a decrease in performance
 
-## Results
+### Round 6 -- Updated default methods to always select node with global lowest bound
+- 34 -> 128 -> 32 -> 16 -> 1
+- BATCH_SIZE 64
+- GAMMA 0.8
+- 8 Iterations of Learning after each episode
+- TARGET_UPDATE 1
+
+results 26: Mixed Settings, 100 Episodes
+- Training stopped at Episode 60, model training post episode limit saw a decrease in performance
 
 ### Validation 
 Comparing P10, P50, P100 and Mixed Models against Max Fraction Branch and Strong Branching 
 
-- p10_comp: Validation p10, 25 Episodes
+- p10_val: Validation p10, 25 Episodes
 
-- p50_comp: Validation p50, 25 Episodes
+- p50_val: Validation p50, 25 Episodes
 
-- p100_comp: Validation p100, 25 Episodes
+- p100_val: Validation p100, 25 Episodes
 
 ### Testing
 Comparing Mixed Model against Max Fraction Branch and Strong Branching 
 
-- Final: Randomly Generated Data, 25 Episodes
+- testing: Randomly Generated Data, 25 Episodes, p:10-150
+
+- testing_final: Randomly Generated Data, 25 Episodes, p:50-200
